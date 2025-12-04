@@ -1,5 +1,6 @@
-from api.v1.tasks import router as vision_router
 from fastapi import FastAPI
+
+from api.v1.tasks import router as vision_router
 
 app = FastAPI(
     title="Vision Service",

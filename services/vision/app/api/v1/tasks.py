@@ -3,8 +3,9 @@
 import cv2
 import numpy as np
 from fastapi import APIRouter, File, HTTPException, UploadFile
-from models import detect_model  # your DetectModel instance
 from starlette.status import HTTP_400_BAD_REQUEST
+
+from models import detect_model  # your DetectModel instance
 
 # TODO: Add imports for other models when available
 # from models import segment_model, classify_model, pose_model, obb_model
