@@ -1,0 +1,6 @@
+onnx==1.19.1
+onnxruntime==1.23.2
+ultralytics==8.3.233
+fastapi==0.123.5
+uvicorn==0.38.0
+python-multipart==0.0.20
