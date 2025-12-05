@@ -3,5 +3,5 @@ from schemas.enums import Task
 from .base import BaseYOLOModel
 
 
-class DetectionModel(BaseYOLOModel):
-    task = Task.DETECT
+class OBBModel(BaseYOLOModel):
+    task: Task = Task.OBB

@@ -1,5 +1,7 @@
 from enum import StrEnum, auto
 
+# from ultralytics.utils.downloads import GITHUB_ASSETS_NAMES
+
 
 class ModelVersion(StrEnum):
     YOLO11N = auto()

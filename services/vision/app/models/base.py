@@ -1,5 +1,5 @@
 import os
-from typing import ClassVar, Dict, Iterable
+from typing import ClassVar, Dict, Iterable, List
 
 import numpy as np
 from ultralytics import YOLO
@@ -33,8 +33,5 @@ class BaseYOLOModel:
             os.remove(pt_model_path)
         return YOLO(onnx_model_path, task=cls.task)
 
-    def __call__(self, images: Iterable[np.ndarray]) -> Iterable[Results]:
-        return self.process(self._model(images, stream=True))
-
-    def process(self, results: Iterable[Results]) -> Iterable[Results]:
-        return results
+    def __call__(self, images: List[np.ndarray]) -> List[Results]:
+        return self._model(images, verbose=False)
