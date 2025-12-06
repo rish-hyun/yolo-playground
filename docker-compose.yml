@@ -1,0 +1,8 @@
+services:
+  vision:
+    build:
+      context: services/vision
+      args:
+        MODEL_VERSION: "yolo11n"
+    ports:
+      - "9500:8000"
