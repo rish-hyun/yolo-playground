@@ -29,9 +29,13 @@ class BaseYOLOModel:
         onnx_model_path = _path.format(ext="onnx")
         if not os.path.exists(onnx_model_path):
             _model = YOLO(pt_model_path, task=cls.task)
-            _model.export(format="onnx")
+            _model.export(format="onnx", dynamic=True)
             os.remove(pt_model_path)
         return YOLO(onnx_model_path, task=cls.task)
 
-    def __call__(self, images: List[np.ndarray]) -> List[Results]:
-        return self._model(images, verbose=False)
+    def __call__(
+        self,
+        images: List[np.ndarray],
+        stream: bool = False,
+    ) -> Iterable[Results]:
+        return self._model(images, stream=stream, verbose=False)
