@@ -11,10 +11,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 WORKDIR /app
 
 FROM base AS builder
+
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 FROM base
+
 COPY --from=builder /usr/local /usr/local
 COPY app/ .
 
