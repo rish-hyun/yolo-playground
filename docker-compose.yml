@@ -1,5 +1,6 @@
 services:
   vision:
+    container_name: vision
     build:
       context: services/vision
     ports:
