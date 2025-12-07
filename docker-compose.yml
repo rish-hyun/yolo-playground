@@ -1,7 +1,13 @@
 services:
   vision:
-    container_name: vision
+    container_name: vision_service
     build:
       context: services/vision
     ports:
       - "9500:8000"
+  orchestrator:
+    container_name: orchestrator_service
+    build:
+      context: services/orchestrator
+    ports:
+      - "9600:8000"
