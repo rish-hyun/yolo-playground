@@ -1,0 +1,27 @@
+# OS / Editor Junk
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Python / Build Junk
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+venv/
+.venv/
+build/
+dist/
+
+# Project-Specific Heavy Data
+weights/
+datasets/
+checkpoints/
+tmp/
+cache/
+
+# Logs
+logs/
+*.log

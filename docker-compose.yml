@@ -1,0 +1,7 @@
+services:
+  vision:
+    container_name: vision
+    build:
+      context: services/vision
+    ports:
+      - "9500:8000"
