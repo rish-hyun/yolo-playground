@@ -1,10 +1,12 @@
-from schemas.enums import ModelVersion
+from common.schemas.enums import ModelVersion
 
-from .classify import ClassificationModel
-from .detect import DetectionModel
-from .obb import OBBModel
-from .pose import PoseModel
-from .segment import SegmentationModel
+from .models import (
+    ClassificationModel,
+    DetectionModel,
+    OBBModel,
+    PoseModel,
+    SegmentationModel,
+)
 
 model_version = ModelVersion.YOLO11N
 

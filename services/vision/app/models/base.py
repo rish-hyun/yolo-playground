@@ -2,10 +2,9 @@ import os
 from typing import ClassVar, Dict, Iterable, List
 
 import numpy as np
+from common.schemas.enums import ModelVersion, Task
 from ultralytics import YOLO
 from ultralytics.engine.results import Results
-
-from schemas.enums import ModelVersion, Task
 
 MODEL_SUFFIX: Dict[Task, str] = {
     Task.DETECT: "",
