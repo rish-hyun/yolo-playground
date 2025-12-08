@@ -27,7 +27,7 @@ class HttpMethod(StrEnum):
 
 class VisionClient:
 
-    def __init__(self, host: str = "localhost", port: int = 9500) -> None:
+    def __init__(self, host: str = "host.docker.internal", port: int = 9500) -> None:
         self._client = httpx.AsyncClient(base_url=f"http://{host}:{port}/api/v1")
 
     async def request(
