@@ -21,3 +21,8 @@ async def serialize(file: UploadFile = File(...)) -> List[np.ndarray]:
 
 
 router = APIRouter()
+
+
+@router.post("/detect")
+async def test(images: np.ndarray = Depends(serialize)):
+    return {"message": "Test endpoint working"}
