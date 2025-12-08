@@ -1,6 +1,15 @@
 from typing import List
 
 import numpy as np
+from common.schemas.responses import (
+    ClassificationResponse,
+    DetectionResponse,
+    OBBResponse,
+    PoseResponse,
+    SegmentResponse,
+)
+from common.schemas.results import DetectionBox, DetectionResult, InferenceSpeed
+from common.utils import img_bytes_to_cv2
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
 
 from models import (
@@ -10,15 +19,6 @@ from models import (
     pose_model,
     segmentation_model,
 )
-from schemas.responses import (
-    ClassificationResponse,
-    DetectionResponse,
-    OBBResponse,
-    PoseResponse,
-    SegmentResponse,
-)
-from schemas.results import DetectionBox, DetectionResult, InferenceSpeed
-from utils import img_bytes_to_cv2
 
 
 async def serialize(file: UploadFile = File(...)) -> List[np.ndarray]:
