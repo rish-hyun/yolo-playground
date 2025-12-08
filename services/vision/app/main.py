@@ -1,3 +1,10 @@
+import os
+import sys
+
+_ROOT = os.path.join(os.path.dirname(__file__), "../../..")
+if _ROOT not in sys.path and os.path.isdir(os.path.join(_ROOT, "common")):
+    sys.path.insert(0, _ROOT)
+
 from fastapi import FastAPI
 
 from api.v1.tasks import router as vision_router

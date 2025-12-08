@@ -3,11 +3,13 @@ services:
     container_name: vision_service
     build:
       context: services/vision
+      dockerfile: dockerfiles/Dockerfile.vision
     ports:
       - "9500:8000"
   orchestrator:
     container_name: orchestrator_service
     build:
       context: services/orchestrator
+      dockerfile: dockerfiles/Dockerfile.orchestrator
     ports:
       - "9600:8000"
