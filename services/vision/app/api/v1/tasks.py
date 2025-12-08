@@ -44,7 +44,7 @@ router = APIRouter()
     summary="Run classification on an image",
     response_model=ClassificationResponse,
 )
-async def classify_endpoint(images: np.ndarray = Depends(serialize)):
+async def classify(images: np.ndarray = Depends(serialize)):
     # results = classification_model(images)
     return ClassificationResponse(results=[], speed=InferenceSpeed())
 
@@ -54,7 +54,7 @@ async def classify_endpoint(images: np.ndarray = Depends(serialize)):
     summary="Run object detection on an image",
     response_model=DetectionResponse,
 )
-async def detect_endpoint(images: np.ndarray = Depends(serialize)):
+async def detect(images: np.ndarray = Depends(serialize)):
     results = []
     for res in detection_model(images):
         result = DetectionResult(boxes=[DetectionBox(**data) for data in res.summary()])
@@ -67,7 +67,7 @@ async def detect_endpoint(images: np.ndarray = Depends(serialize)):
     summary="Run oriented bounding box detection on an image",
     response_model=OBBResponse,
 )
-async def obb_endpoint(images: np.ndarray = Depends(serialize)):
+async def obb(images: np.ndarray = Depends(serialize)):
     # results = obb_model(images)
     return OBBResponse(results=[], speed=InferenceSpeed())
 
@@ -77,7 +77,7 @@ async def obb_endpoint(images: np.ndarray = Depends(serialize)):
     summary="Run pose estimation on an image",
     response_model=PoseResponse,
 )
-async def pose_endpoint(images: np.ndarray = Depends(serialize)):
+async def pose(images: np.ndarray = Depends(serialize)):
     # results = pose_model(images)
     return PoseResponse(results=[], speed=InferenceSpeed())
 
@@ -87,6 +87,6 @@ async def pose_endpoint(images: np.ndarray = Depends(serialize)):
     summary="Run instance segmentation on an image",
     response_model=SegmentResponse,
 )
-async def segment_endpoint(images: np.ndarray = Depends(serialize)):
+async def segment(images: np.ndarray = Depends(serialize)):
     # results = segmentation_model(images)
     return SegmentResponse(results=[], speed=InferenceSpeed())
