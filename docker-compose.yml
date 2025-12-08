@@ -1,15 +1,23 @@
 services:
+
   vision:
-    container_name: vision_service
+    image: vision:latest
+    container_name: vision
     build:
       context: services/vision
-      dockerfile: dockerfiles/Dockerfile.vision
+      additional_contexts:
+        common: common
+      dockerfile: ../../dockerfiles/Dockerfile.vision
     ports:
       - "9500:8000"
+
   orchestrator:
-    container_name: orchestrator_service
+    image: orchestrator:latest
+    container_name: orchestrator
     build:
       context: services/orchestrator
-      dockerfile: dockerfiles/Dockerfile.orchestrator
+      additional_contexts:
+        common: common
+      dockerfile: ../../dockerfiles/Dockerfile.orchestrator
     ports:
       - "9600:8000"
