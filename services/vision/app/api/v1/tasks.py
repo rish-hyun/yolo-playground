@@ -9,7 +9,7 @@ from common.schemas.responses import (
     SegmentResponse,
 )
 from common.schemas.results import DetectionBox, DetectionResult, InferenceSpeed
-from common.utils import img_bytes_to_cv2
+from common.utils.convert import img_bytes_to_cv2
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
 
 from models import (
