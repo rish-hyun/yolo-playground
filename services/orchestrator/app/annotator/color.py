@@ -1,4 +1,5 @@
 import numpy as np
+
 from common.utils.convert import hex_to_rgb, rgb_to_hex
 
 from .constants import (

@@ -1,12 +1,12 @@
 import mimetypes
 
 import cv2
-from common.schemas.requests import ImageFile
-from common.utils.convert import img_bytes_to_cv2, img_cv2_to_bytes_io
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
 from fastapi.responses import StreamingResponse
 
 from client import vision_client
+from common.schemas.requests import ImageFile
+from common.utils.convert import img_bytes_to_cv2, img_cv2_to_bytes_io
 
 
 async def serialize(file: UploadFile = File(...)) -> ImageFile:
