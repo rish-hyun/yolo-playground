@@ -1,7 +1,8 @@
 import mimetypes
 
+import cv2
 from common.schemas.requests import ImageFile
-from common.utils import img_bytes_to_cv2, img_cv2_to_bytes_io
+from common.utils.convert import img_bytes_to_cv2, img_cv2_to_bytes_io
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
 from fastapi.responses import StreamingResponse
 
@@ -39,6 +40,27 @@ async def classify(file: ImageFile = Depends(serialize)):
 async def detect(file: ImageFile = Depends(serialize)):
     response = await vision_client.detect(file)
     img = img_bytes_to_cv2(file.file_content)
+
+    result = response.results[0] or None
+    for box in result.boxes:
+        x1, y1, x2, y2 = (
+            int(box.bbox.x1),
+            int(box.bbox.y1),
+            int(box.bbox.x2),
+            int(box.bbox.y2),
+        )
+        label = f"{box.label} {box.confidence:.2f}"
+
+        cv2.rectangle(img, (x1, y1), (x2, y2), color=(0, 255, 0), thickness=2)
+        cv2.putText(
+            img,
+            label,
+            (x1, y1 - 10),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            fontScale=0.5,
+            color=(0, 255, 0),
+            thickness=2,
+        )
 
     ext = mimetypes.guess_extension(file.content_type)
     img_bytes = img_cv2_to_bytes_io(img, ext=ext)
