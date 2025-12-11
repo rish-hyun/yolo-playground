@@ -8,7 +8,7 @@ services:
       additional_contexts:
         common: common
     environment:
-      MODEL_VERSION: "yolov11n"
+      MODEL_VERSION: "yolo11n"
     ports:
       - "9500:8000"
 
