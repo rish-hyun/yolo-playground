@@ -7,6 +7,8 @@ services:
       context: services/vision
       additional_contexts:
         common: common
+    environment:
+      MODEL_VERSION: "yolov11n"
     ports:
       - "9500:8000"
 
@@ -17,5 +19,8 @@ services:
       context: services/orchestrator
       additional_contexts:
         common: common
+    environment:
+      VISION_SERVICE_HOST: vision
+      VISION_SERVICE_PORT: 8000
     ports:
       - "9600:8000"
