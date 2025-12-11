@@ -2,6 +2,7 @@ from enum import StrEnum
 from typing import Dict
 
 import httpx
+
 from common.schemas.requests import ImageFile
 from common.schemas.responses import (
     ClassificationResponse,

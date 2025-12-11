@@ -1,6 +1,8 @@
 from typing import List
 
 import numpy as np
+from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
+
 from common.schemas.responses import (
     ClassificationResponse,
     DetectionResponse,
@@ -9,9 +11,7 @@ from common.schemas.responses import (
     SegmentResponse,
 )
 from common.schemas.results import DetectionBox, DetectionResult, InferenceSpeed
-from common.utils import img_bytes_to_cv2
-from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
-
+from common.utils.convert import img_bytes_to_cv2
 from models import (
     classification_model,
     detection_model,
