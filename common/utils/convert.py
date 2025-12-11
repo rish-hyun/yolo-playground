@@ -13,7 +13,7 @@ def img_cv2_to_bytes_io(img: np.ndarray, ext: str) -> BytesIO:
 
 
 def hex_to_rgb(hex: str) -> tuple[int, int, int]:
-    return tuple(int(hex[i : i + 2], 16) for i in (0, 2, 4))
+    return tuple(int(hex.lstrip("#")[i : i + 2], 16) for i in (0, 2, 4))
 
 
 def rgb_to_hex(rgb: tuple[int, int, int]) -> str:

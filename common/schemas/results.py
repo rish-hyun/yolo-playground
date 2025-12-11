@@ -21,6 +21,7 @@ class ClassificationProbability(BaseModel):
 
 
 class DetectionBox(BaseModel):
+    id: int = Field(alias="class")
     label: str = Field(alias="name")
     confidence: float = Field(alias="confidence")
     bbox: BoundingBox = Field(alias="box")

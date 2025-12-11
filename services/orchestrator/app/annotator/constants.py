@@ -1,4 +1,4 @@
-DEFAULT_COLORS: list[str] = [
+DEFAULT_PALETTE: list[str] = [
     "#042AFF",
     "#0BDBEB",
     "#F3F3F3",
