@@ -1,3 +1,5 @@
+import os
+
 from common.schemas.enums import ModelVersion
 
 from .models import (
@@ -8,7 +10,7 @@ from .models import (
     SegmentationModel,
 )
 
-model_version = ModelVersion.YOLO11N
+model_version = ModelVersion(os.getenv("MODEL_VERSION", ModelVersion.YOLO11N.value))
 
 classification_model = ClassificationModel(model_version)
 detection_model = DetectionModel(model_version)
