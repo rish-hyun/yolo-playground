@@ -8,6 +8,7 @@ if _ROOT not in sys.path and os.path.isdir(os.path.join(_ROOT, "common")):
 from fastapi import FastAPI
 
 from api.v1.tasks import router as vision_router
+from common.schemas.responses import HealthStatus
 
 app = FastAPI(
     title="Vision Service",
@@ -26,14 +27,19 @@ app = FastAPI(
 )
 
 
-@app.get("/health", tags=["system"])
-async def health():
-    return {"status": "ok"}
+@app.get(
+    "/health",
+    tags=["system"],
+    summary="Get vision service health status",
+    response_model=HealthStatus,
+)
+async def health() -> HealthStatus:
+    return HealthStatus(healthy=True, message="Vision service is running")
 
 
-@app.get("/", include_in_schema=False)
-async def root():
-    return {"message": "Vision service is running"}
+@app.get("/", include_in_schema=False, response_model=HealthStatus)
+async def root() -> HealthStatus:
+    return HealthStatus(healthy=True, message="Vision service is running")
 
 
 app.include_router(vision_router, prefix="/api/v1", tags=["vision"])
