@@ -7,7 +7,8 @@ if _ROOT not in sys.path and os.path.isdir(os.path.join(_ROOT, "common")):
 
 from fastapi import FastAPI
 
-from api.v1.tasks import router as orchestrator_router
+from api.v1.router import api_router as orchestrator_router
+from common.schemas.responses import HealthStatus
 
 app = FastAPI(
     title="Orchestrator Service",
@@ -19,14 +20,19 @@ app = FastAPI(
 )
 
 
-@app.get("/health")
-async def health():
-    return {"status": "ok"}
+@app.get(
+    "/health",
+    tags=["system"],
+    summary="Get orchestrator service health status",
+    response_model=HealthStatus,
+)
+async def health() -> HealthStatus:
+    return HealthStatus(healthy=True, message="Orchestrator service is running")
 
 
-@app.get("/", include_in_schema=False)
-async def root():
-    return {"message": "Orchestrator service is running"}
+@app.get("/", include_in_schema=False, response_model=HealthStatus)
+async def root() -> HealthStatus:
+    return HealthStatus(healthy=True, message="Orchestrator service is running")
 
 
 app.include_router(orchestrator_router, prefix="/api/v1", tags=["orchestrator"])

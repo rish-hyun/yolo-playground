@@ -1,5 +1,5 @@
 from enum import StrEnum
-from typing import Dict
+from typing import Dict, Optional
 
 import httpx
 
@@ -14,11 +14,12 @@ from common.schemas.responses import (
 
 
 class Endpoints:
-    CLASSIFY = "/classify"
-    DETECT = "/detect"
-    OBB = "/obb"
-    POSE = "/pose"
-    SEGMENT = "/segment"
+    HEALTH = "/health"
+    CLASSIFY = "/api/v1/classify"
+    DETECT = "/api/v1/detect"
+    OBB = "/api/v1/obb"
+    POSE = "/api/v1/pose"
+    SEGMENT = "/api/v1/segment"
 
 
 class HttpMethod(StrEnum):
@@ -29,21 +30,24 @@ class HttpMethod(StrEnum):
 class VisionClient:
 
     def __init__(self, host: str, port: int) -> None:
-        self._client = httpx.AsyncClient(base_url=f"http://{host}:{port}/api/v1")
+        self._client = httpx.AsyncClient(base_url=f"http://{host}:{port}")
 
     async def request(
         self,
         method: HttpMethod,
         endpoint: str,
-        file: ImageFile,
+        file: Optional[ImageFile] = None,
     ) -> Dict:
         response = await self._client.request(
             method=method.value,
             url=endpoint,
-            files={"file": file},
+            files={"file": file} if file else None,
         )
         response.raise_for_status()
         return response.json()
+
+    async def health(self) -> Dict:
+        return await self.request(HttpMethod.GET, Endpoints.HEALTH)
 
     async def classify(self, file: ImageFile) -> ClassificationResponse:
         response = await self.request(HttpMethod.POST, Endpoints.CLASSIFY, file)
