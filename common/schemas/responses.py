@@ -24,3 +24,27 @@ DetectionResponse = ModelResponse[DetectionResult]
 OBBResponse = ModelResponse[OBBResult]
 PoseResponse = ModelResponse[PoseResult]
 SegmentResponse = ModelResponse[SegmentResult]
+
+
+class VisionModes(BaseModel):
+    image: bool
+    video: bool
+    webcam: bool
+
+
+class VisionTasks(BaseModel):
+    classify: bool
+    detect: bool
+    obb: bool
+    pose: bool
+    segment: bool
+
+
+class VisionCapabilitiesResponse(BaseModel):
+    modes: VisionModes
+    tasks: VisionTasks
+
+
+class HealthStatus(BaseModel):
+    healthy: bool
+    message: str

@@ -10,8 +10,8 @@ class ModelVersion(StrEnum):
 
 
 class Task(StrEnum):
-    DETECT = auto()
-    SEGMENT = auto()
     CLASSIFY = auto()
-    POSE = auto()
+    DETECT = auto()
     OBB = auto()
+    POSE = auto()
+    SEGMENT = auto()
