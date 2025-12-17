@@ -15,3 +15,9 @@ class Task(StrEnum):
     OBB = auto()
     POSE = auto()
     SEGMENT = auto()
+
+
+class Mode(StrEnum):
+    IMAGE = "Image"
+    VIDEO = "Video"
+    WEBCAM = "Webcam (live-video)"
