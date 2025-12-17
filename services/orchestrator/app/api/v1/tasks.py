@@ -6,7 +6,11 @@ from fastapi.responses import StreamingResponse
 from annotator import Annotator
 from client import vision_client
 from common.schemas.requests import ImageFile
-from common.utils.convert import img_bytes_to_cv2, img_cv2_to_bytes_io
+from common.utils.convert import (
+    img_bytes_to_bytes_io,
+    img_bytes_to_cv2,
+    img_cv2_to_bytes_io,
+)
 
 
 async def serialize(file: UploadFile = File(...)) -> ImageFile:
@@ -33,7 +37,10 @@ router = APIRouter()
 
 @router.post("/classify", summary="Run classification on an image")
 async def classify(file: ImageFile = Depends(serialize)):
-    pass
+    return StreamingResponse(
+        img_bytes_to_bytes_io(file.file_content),
+        media_type=file.content_type,
+    )
 
 
 @router.post("/detect", summary="Run object detection on an image")
@@ -66,14 +73,23 @@ async def detect(file: ImageFile = Depends(serialize)):
 
 @router.post("/obb", summary="Run oriented bounding box detection on an image")
 async def obb(file: ImageFile = Depends(serialize)):
-    pass
+    return StreamingResponse(
+        img_bytes_to_bytes_io(file.file_content),
+        media_type=file.content_type,
+    )
 
 
 @router.post("/pose", summary="Run pose estimation on an image")
 async def pose(file: ImageFile = Depends(serialize)):
-    pass
+    return StreamingResponse(
+        img_bytes_to_bytes_io(file.file_content),
+        media_type=file.content_type,
+    )
 
 
 @router.post("/segment", summary="Run segmentation on an image")
 async def segment(file: ImageFile = Depends(serialize)):
-    pass
+    return StreamingResponse(
+        img_bytes_to_bytes_io(file.file_content),
+        media_type=file.content_type,
+    )

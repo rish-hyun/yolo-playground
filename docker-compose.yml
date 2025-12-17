@@ -1,5 +1,4 @@
 services:
-
   vision:
     image: vision:latest
     container_name: vision
@@ -24,3 +23,16 @@ services:
       VISION_SERVICE_PORT: 8000
     ports:
       - "9600:8000"
+
+  frontend:
+    image: frontend:latest
+    container_name: frontend
+    build:
+      context: services/frontend
+      additional_contexts:
+        common: common
+    environment:
+      ORCHESTRATOR_SERVICE_HOST: orchestrator
+      ORCHESTRATOR_SERVICE_PORT: 8000
+    ports:
+      - "9700:8000"
