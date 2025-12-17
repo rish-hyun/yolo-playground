@@ -1,5 +1,5 @@
 from enum import StrEnum
-from typing import Optional
+from typing import Any, Optional
 
 import requests
 
@@ -9,9 +9,15 @@ from common.schemas.responses import HealthStatus, VisionCapabilitiesResponse
 
 class Endpoints:
     ORCHESTRATOR_HEALTH = "/health"
+
     VISION_HEALTH = "/api/v1/vision/health"
     CAPABILITIES = "/api/v1/vision/capabilities"
-    DETECT = "/api/v1/vision/detect"
+
+    CLASSIFY = "/api/v1/tasks/classify"
+    DETECT = "/api/v1/tasks/detect"
+    OBB = "/api/v1/tasks/obb"
+    POSE = "/api/v1/tasks/pose"
+    SEGMENT = "/api/v1/tasks/segment"
 
 
 class HttpMethod(StrEnum):
@@ -30,7 +36,7 @@ class OrchestratorClient:
         method: HttpMethod,
         endpoint: str,
         file: Optional[ImageFile] = None,
-    ) -> dict:
+    ) -> Any:
         response = self._client.request(
             method=method.value,
             url=f"{self._base_url}{endpoint}",
@@ -38,7 +44,9 @@ class OrchestratorClient:
             timeout=10,
         )
         response.raise_for_status()
-        return response.json()
+        if file is None:
+            return response.json()
+        return response.content
 
     def is_orchestrator_healthy(self) -> bool:
         try:
@@ -66,9 +74,17 @@ class OrchestratorClient:
         response = self.request(method=HttpMethod.GET, endpoint=Endpoints.CAPABILITIES)
         return VisionCapabilitiesResponse(**response)
 
-    def detect(self, file: ImageFile):
-        return self.request(
-            method=HttpMethod.POST,
-            endpoint=Endpoints.DETECT,
-            file=file,
-        )
+    def classify(self, file: ImageFile) -> bytes:
+        return self.request(HttpMethod.POST, endpoint=Endpoints.CLASSIFY, file=file)
+
+    def detect(self, file: ImageFile) -> bytes:
+        return self.request(HttpMethod.POST, endpoint=Endpoints.DETECT, file=file)
+
+    def obb(self, file: ImageFile) -> bytes:
+        return self.request(HttpMethod.POST, endpoint=Endpoints.OBB, file=file)
+
+    def pose(self, file: ImageFile) -> bytes:
+        return self.request(HttpMethod.POST, endpoint=Endpoints.POSE, file=file)
+
+    def segment(self, file: ImageFile) -> bytes:
+        return self.request(HttpMethod.POST, endpoint=Endpoints.SEGMENT, file=file)
